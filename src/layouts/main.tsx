@@ -1,11 +1,16 @@
-import Footer from '@/components/Footer'
+import React from 'react'
+import AppBar from '@/components/common/AppBar'
+import Footer from '@/components/common/Footer'
 
 const Main = ({children}: any) => {
   return (
-    <div className="flex flex-col w-full min-h-screen p-4 md:p-8 max-w-[1440px] mx-auto">
-      <main className="flex-auto min-h-[calc(100vh-144px)]">{children}</main>
-      <Footer />
-    </div>
+    <React.Fragment>
+      <div className="flex flex-col min-h-screen">
+        <AppBar />
+        <main className="flex-auto min-h-[calc(100vh-144px)]">{children}</main>
+        <Footer />
+      </div>
+    </React.Fragment>
   )
 }
 

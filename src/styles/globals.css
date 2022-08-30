@@ -7,3 +7,9 @@
     @apply bg-neutral-100;
   }
 }
+
+@layer components {
+  .container {
+    @apply w-full max-w-[1440px] px-4 md:px-8 mx-auto;
+  }
+}

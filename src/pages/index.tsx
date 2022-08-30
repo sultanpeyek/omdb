@@ -6,14 +6,23 @@ import Main from '@/layouts/main'
 
 import {AiOutlineArrowDown} from 'react-icons/ai'
 
+import MovieSearchForm from '@/components/movie/MovieSearchForm'
+import MovieCardContainer from '@/components/movie/MovieCardContainer'
+import MovieCardItem from '@/components/movie/MovieCardItem'
+
 import ImageAvatar from '@/assets/pfp.png'
 
 const Home: NextPage = () => {
   return (
     <Main>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum, sunt.
-      Quis repellendus dolore quam cum voluptatibus sint iure suscipit sit
-      aperiam? Impedit vitae et quas sed ea praesentium quasi odio?
+      <MovieSearchForm />
+      <MovieCardContainer>
+        <MovieCardItem />
+        <MovieCardItem />
+        <MovieCardItem />
+        <MovieCardItem />
+        <MovieCardItem />
+      </MovieCardContainer>
     </Main>
   )
 }

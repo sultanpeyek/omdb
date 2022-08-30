@@ -1,0 +1,3 @@
+import MovieSearchAutoCompleteContainer from './MovieSearchAutoCompleteContainer'
+
+export default MovieSearchAutoCompleteContainer
