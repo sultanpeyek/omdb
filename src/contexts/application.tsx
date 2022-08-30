@@ -1,4 +1,5 @@
 import {createContext, useContext} from 'react'
+
 import useRouteUrlHistory from '@/hooks/useRouteUrlHistory'
 
 const ApplicationContext = createContext<any | undefined>(undefined)

@@ -1,16 +1,31 @@
 import Image from 'next/image'
-
+import {useRef, useState} from 'react'
 import {AiOutlineZoomIn} from 'react-icons/ai'
 
-const MovieDetail = ({children}: any) => {
+import ModalPreview from '@/components/common/ModalPreview'
+import useOnClickOutside from '@/hooks/useOnClickOutside'
+
+const MovieDetail = () => {
+  const [isModalPreviewOpen, setIsModalPreviewOpen] = useState(false)
+
+  const handleImageClick = () => {
+    setIsModalPreviewOpen(true)
+  }
+
+  const ref = useRef()
+
+  useOnClickOutside(ref, () => setIsModalPreviewOpen(false))
+
   return (
     <div className="py-4 text-white bg-gray-700 md:py-8">
       <div className="container">
         <div className="flex-row justify-between block w-full md:flex">
-          <div className="w-[300px] group relative cursor-pointer mx-auto md:order-2">
+          <div
+            className="basis-[300px] max-w-[300px] group relative cursor-pointer mx-auto md:order-2"
+            onClick={handleImageClick}
+          >
             <Image
               src="https://m.media-amazon.com/images/M/MV5BNmY4ZDZjY2UtOWFiYy00MjhjLThmMjctOTQ2NjYxZGRjYmNlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg"
-              // src="https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https%3A%2F%2Fwww.arweave.net%2FG8ViuACmyGDwnXXGPYikfukSBVjDoWNq3dLWxswtU6g%3Fext%3Djpeg"
               alt=""
               layout="responsive"
               width={300}
@@ -29,6 +44,7 @@ const MovieDetail = ({children}: any) => {
           </div>
         </div>
       </div>
+      <ModalPreview modalRef={ref} open={isModalPreviewOpen} />
     </div>
   )
 }

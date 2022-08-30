@@ -6,6 +6,10 @@
   html {
     @apply bg-neutral-100;
   }
+
+  a {
+    @apply text-yellow-500;
+  }
 }
 
 @layer components {

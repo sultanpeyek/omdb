@@ -1,14 +1,7 @@
 import type {NextPage} from 'next'
-import Link from 'next/link'
-import Image from 'next/image'
-
-import Main from '@/layouts/main'
-
-import {AiOutlineArrowDown} from 'react-icons/ai'
 
 import MovieDetail from '@/components/movie/MovieDetail'
-
-import ImageAvatar from '@/assets/pfp.png'
+import Main from '@/layouts/main'
 
 const Home: NextPage = () => {
   return (

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import AppBar from '@/components/common/AppBar'
 import Footer from '@/components/common/Footer'
 
