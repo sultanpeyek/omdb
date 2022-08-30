@@ -14,10 +14,10 @@ const Home: NextPage = () => {
 
   return (
     <Main>
-      {wallet.connected ? (
+      {!wallet.connected ? (
         <React.Fragment>
           <MovieSearchForm />
-          {1 != 1 ? (
+          {1 == 1 ? (
             <LoadingSpinner />
           ) : (
             <MovieCardContainer>

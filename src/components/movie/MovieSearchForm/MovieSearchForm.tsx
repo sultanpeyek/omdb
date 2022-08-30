@@ -21,7 +21,7 @@ const MovieSearchForm = ({children}: any) => {
             <input
               id="search"
               type="text"
-              className="w-full px-4 py-2 rounded-l outline-none md:text-lg"
+              className="w-full px-4 py-2 rounded-none rounded-l outline-none md:text-lg"
               placeholder="e.g. Batman"
             />
           </div>
