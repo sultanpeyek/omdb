@@ -9,6 +9,6 @@ export type Movie = {
 
 export const getMoviesBySearchValue = (searchValue: string) => {
   return axios.get(
-    `http://www.omdbapi.com?apikey=${process.env.OMDB_API_KEY}&s=${searchValue}`,
+    `https://www.omdbapi.com?apikey=${process.env.OMDB_API_KEY}&s=${searchValue}`,
   )
 }
