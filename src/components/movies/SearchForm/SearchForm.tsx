@@ -8,11 +8,11 @@ const SearchForm = (props: any) => {
     <div className="py-4 bg-gray-700 md:py-8">
       <div className="container">
         <div className="max-w-lg mx-auto mb-2 text-white">
-          <label htmlFor="search">Search by Title, ID, or Year.</label>
+          <label htmlFor="search">Search by Title</label>
         </div>
         <div className="relative flex flex-row max-w-lg mx-auto">
           <div className="relative flex-auto">
-            {1 != 1 && (
+            {1 !== 1 && (
               <AiOutlineClose
                 size={16}
                 className="absolute right-2 top-[50%] -mt-[8px] cursor-pointer"
@@ -34,7 +34,7 @@ const SearchForm = (props: any) => {
           >
             <AiOutlineSearch size={24} />
           </button>
-          {1 != 1 && (
+          {1 !== 1 && (
             <SearchAutoCompleteContainer>
               <SearchAutoCompleteItem />
               <SearchAutoCompleteItem />

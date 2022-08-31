@@ -9,7 +9,7 @@ export const fetchMovies: any = createAsyncThunk(
       searchValue = 'Batman'
     }
     const response: any = await getMoviesBySearchValue(searchValue)
-    return response.data
+    return {searchValue, data: response.data}
   },
 )
 
@@ -19,6 +19,7 @@ export const moviesSlice = createSlice({
     data: [],
     status: 'idle',
     error: null,
+    searchValue: '',
   },
   reducers: {
     search: (state: any, action: any) => {
@@ -35,7 +36,8 @@ export const moviesSlice = createSlice({
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.data = action.payload.Search
+        state.searchValue = action.payload.searchValue
+        state.data = action.payload.data.Search
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = 'failed'

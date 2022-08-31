@@ -12,7 +12,10 @@ const CardItem = (props: any) => {
 
   return (
     <Link href={`/movie/${props.imdbID}`} passHref>
-      <a className="relative flex flex-col overflow-hidden text-white bg-gray-800 rounded-md shadow-lg shadow-gray-500 group">
+      <a
+        href="replace"
+        className="relative flex flex-col overflow-hidden text-white bg-gray-800 rounded-md shadow-lg shadow-gray-500 group"
+      >
         <div className="relative mb-4 aspect-[200/311]">
           <Image
             src={posterSrc}
@@ -36,9 +39,9 @@ const CardItem = (props: any) => {
           <div className="absolute top-0 bottom-0 w-full h-full transition-opacity duration-200 opacity-0 bg-black/10 group-hover:opacity-100"></div>
           <div
             className={`absolute px-3 py-1 text-xs font-semibold text-black top-4 right-4 rounded-2xl ${
-              props.type == 'movie'
+              props.type === 'movie'
                 ? 'bg-yellow-400'
-                : props.type == 'series'
+                : props.type === 'series'
                 ? 'bg-green-400'
                 : 'bg-white'
             }`}

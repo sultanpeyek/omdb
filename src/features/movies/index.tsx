@@ -14,8 +14,11 @@ const Movies = () => {
 
   const movies = useSelector((state: any) => state.movies.data)
   const moviesStatus = useSelector((state: any) => state.movies.status)
+  const initialSearchValue = useSelector(
+    (state: any) => state.movies.searchValue,
+  )
 
-  const [searchValue, setSearchValue] = React.useState('')
+  const [searchValue, setSearchValue] = React.useState(initialSearchValue)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const Movies = () => {
       <SearchForm
         searchValue={searchValue}
         onSearchValueChange={(e: any) => setSearchValue(e.target.value)}
-        onSearchKeyDown={e => {
+        onSearchKeyDown={(e: any) => {
           if (e.keyCode === 13) {
             dispatch(fetchMovies(searchValue))
           }

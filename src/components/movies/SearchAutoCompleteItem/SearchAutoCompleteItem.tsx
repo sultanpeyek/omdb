@@ -1,4 +1,4 @@
-const SearchAutoCompleteItem = ({children}: any) => {
+const SearchAutoCompleteItem = () => {
   return <div className="p-4 cursor-pointer">Auto Complete Item</div>
 }
 

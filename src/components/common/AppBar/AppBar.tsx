@@ -9,7 +9,7 @@ const AppBar = () => {
     <header className="flex bg-gray-900 h-14">
       <div className="container flex items-stretch justify-between">
         <Link href="/" passHref>
-          <a className="flex items-center text-white">
+          <a href="replace" className="flex items-center text-white">
             <span className="p-2 font-bold leading-none tracking-tighter text-center text-black align-middle bg-yellow-400">
               OMDB
             </span>
