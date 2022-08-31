@@ -1,20 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
-import {capitalizeText, isValidUrl} from '@/utils'
+import {capitalizeText, isValidUrl, shimmer} from '@/utils'
 
 const CardItem = (props: any) => {
-  const [posterSrc, setPosterSrc] = useState('')
   const fallbackSrc = '/assets/pfp.png'
-
-  useEffect(() => {
-    if (isValidUrl(props.poster)) {
-      setPosterSrc(props.poster)
-    } else {
-      setPosterSrc(fallbackSrc)
-    }
-  }, [props.poster])
+  const [posterSrc, setPosterSrc] = useState(
+    isValidUrl(props.poster) ? props.poster : fallbackSrc,
+  )
 
   return (
     <Link href={`/movie/${props.imdbID}`} passHref>
@@ -27,6 +21,8 @@ const CardItem = (props: any) => {
             objectFit="cover"
             objectPosition="center"
             draggable={false}
+            placeholder="blur"
+            blurDataURL={shimmer(277, 431)}
             onLoadingComplete={result => {
               if (result.naturalWidth === 0) {
                 // Broken image
@@ -44,7 +40,7 @@ const CardItem = (props: any) => {
                 ? 'bg-yellow-400'
                 : props.type == 'series'
                 ? 'bg-green-400'
-                : ''
+                : 'bg-white'
             }`}
           >
             {capitalizeText(props.type)}
