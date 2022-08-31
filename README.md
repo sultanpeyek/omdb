@@ -5,5 +5,5 @@ FE Engineer Exercise.
 Create `.env.local` file.
 
 ```
-OMDB_API_KEY=xxxxx
+NEXT_PUBLIC_OMDB_API_KEY=xxxxx
 ```

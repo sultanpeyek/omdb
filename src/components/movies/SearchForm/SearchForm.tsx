@@ -1,9 +1,9 @@
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
 
-import MovieSearchAutoCompleteContainer from '@/components/movie/MovieSearchAutoCompleteContainer'
-import MovieSearchAutoCompleteItem from '@/components/movie/MovieSearchAutoCompleteItem'
+import SearchAutoCompleteContainer from '@/components/movies/SearchAutoCompleteContainer'
+import SearchAutoCompleteItem from '@/components/movies/SearchAutoCompleteItem'
 
-const MovieSearchForm = ({children}: any) => {
+const SearchForm = (props: any) => {
   return (
     <div className="py-4 bg-gray-700 md:py-8">
       <div className="container">
@@ -23,16 +23,22 @@ const MovieSearchForm = ({children}: any) => {
               type="text"
               className="w-full px-4 py-2 rounded-none rounded-l outline-none md:text-lg"
               placeholder="e.g. Batman"
+              value={props.searchValue}
+              onChange={props.onSearchValueChange}
+              onKeyDown={props.onSearchKeyDown}
             />
           </div>
-          <button className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg">
+          <button
+            className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg"
+            onClick={props.onSearchButtonClick}
+          >
             <AiOutlineSearch size={24} />
           </button>
           {1 != 1 && (
-            <MovieSearchAutoCompleteContainer>
-              <MovieSearchAutoCompleteItem />
-              <MovieSearchAutoCompleteItem />
-            </MovieSearchAutoCompleteContainer>
+            <SearchAutoCompleteContainer>
+              <SearchAutoCompleteItem />
+              <SearchAutoCompleteItem />
+            </SearchAutoCompleteContainer>
           )}
         </div>
       </div>
@@ -40,4 +46,4 @@ const MovieSearchForm = ({children}: any) => {
   )
 }
 
-export default MovieSearchForm
+export default SearchForm

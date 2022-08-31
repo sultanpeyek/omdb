@@ -5,7 +5,7 @@ import {AiOutlineZoomIn} from 'react-icons/ai'
 import ModalPreview from '@/components/common/ModalPreview'
 import useOnClickOutside from '@/hooks/useOnClickOutside'
 
-const MovieDetail = () => {
+const Detail = () => {
   const [isModalPreviewOpen, setIsModalPreviewOpen] = useState(false)
 
   const handleImageClick = () => {
@@ -49,4 +49,4 @@ const MovieDetail = () => {
   )
 }
 
-export default MovieDetail
+export default Detail

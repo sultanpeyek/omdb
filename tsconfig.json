@@ -16,13 +16,18 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@/api/*": ["src/api/*"],
+      "@/app/*": ["src/app/*"],
+      "@/assets/*": ["public/assets/*"],
+      "@/components/*": ["src/components/*"],
       "@/constants": ["src/constants/index.ts"],
       "@/constants/*": ["src/constants/*"],
-      "@/hooks/*": ["src/hooks/*"],
       "@/contexts/*": ["src/contexts/*"],
-      "@/components/*": ["src/components/*"],
+      "@/features/*": ["src/features/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/layouts/*": ["src/layouts/*"],
-      "@/assets/*": ["public/assets/*"]
+      "@/utils": ["src/utils/index.ts"],
+      "@/utils/*": ["src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
