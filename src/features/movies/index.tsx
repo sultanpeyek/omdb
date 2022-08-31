@@ -23,7 +23,7 @@ const Movies = () => {
 
   useEffect(() => {
     if (moviesStatus === 'idle') {
-      dispatch(fetchMovies(''))
+      dispatch(fetchMovies())
     }
   }, [moviesStatus, dispatch])
 
@@ -38,13 +38,20 @@ const Movies = () => {
           }
         }}
         onSearchButtonClick={() => dispatch(fetchMovies(searchValue))}
+        onSearchResetClick={() => {
+          setSearchValue('')
+          dispatch(fetchMovies())
+        }}
       />
       {moviesStatus === 'loading' ? (
         <LoadingSpinner />
-      ) : (
-        <CardContainer>
-          {movies &&
-            movies.map((movie: any) => (
+      ) : movies ? (
+        <>
+          <div className="container pt-4 text-center md:pt-8">
+            Results for <strong>&ldquo;{initialSearchValue}&rdquo;</strong>
+          </div>
+          <CardContainer>
+            {movies.map((movie: any) => (
               <CardItem
                 key={movie.imdbID}
                 title={movie.Title}
@@ -54,7 +61,13 @@ const Movies = () => {
                 poster={movie.Poster}
               />
             ))}
-        </CardContainer>
+          </CardContainer>
+        </>
+      ) : (
+        <div className="container pt-4 text-center md:pt-8">
+          No results found for{' '}
+          <strong>&ldquo;{initialSearchValue}&rdquo;</strong>
+        </div>
       )}
     </React.Fragment>
   ) : (

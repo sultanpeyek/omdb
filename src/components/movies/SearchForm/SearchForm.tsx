@@ -12,10 +12,12 @@ const SearchForm = (props: any) => {
         </div>
         <div className="relative flex flex-row max-w-lg mx-auto">
           <div className="relative flex-auto">
-            {1 !== 1 && (
+            {props.searchValue.length > 2 && (
               <AiOutlineClose
                 size={16}
-                className="absolute right-2 top-[50%] -mt-[8px] cursor-pointer"
+                className="absolute right-2 top-[50%] -mt-2 cursor-pointer"
+                onClick={props.onSearchResetClick}
+                onMouseDown={e => e.preventDefault()}
               />
             )}
             <input
@@ -23,14 +25,20 @@ const SearchForm = (props: any) => {
               type="text"
               className="w-full px-4 py-2 rounded-none rounded-l outline-none md:text-lg"
               placeholder="e.g. Batman"
+              inputMode="search"
+              minLength={3}
               value={props.searchValue}
               onChange={props.onSearchValueChange}
-              onKeyDown={props.onSearchKeyDown}
+              onKeyDown={
+                props.searchValue.length > 2 ? props.onSearchKeyDown : null
+              }
             />
           </div>
           <button
-            className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg"
+            className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-400 [&:disabled]:text-gray-600"
+            disabled={props.searchValue.length < 3}
             onClick={props.onSearchButtonClick}
+            onMouseDown={e => e.preventDefault()}
           >
             <AiOutlineSearch size={24} />
           </button>
