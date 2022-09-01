@@ -51,6 +51,7 @@ export const moviesSlice = createSlice({
     selectedMovie: null,
     fetchMovieStatus: 'idle',
     moviesStorage: [],
+    byPassWalletConnect: false,
   },
   reducers: {
     setSelectedMovie: (state: any, action: any) => {
@@ -58,6 +59,9 @@ export const moviesSlice = createSlice({
     },
     setModalPreviewIsOpen: (state: any, action: any) => {
       state.modalPreviewIsOpen = action.payload
+    },
+    setByPassWalletConnect: (state: any) => {
+      state.byPassWalletConnect = true
     },
     loadLocalStorage: (state: any) => {
       state.moviesStorage =
@@ -126,7 +130,11 @@ export const moviesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setSelectedMovie, setModalPreviewIsOpen, loadLocalStorage} =
-  moviesSlice.actions
+export const {
+  setSelectedMovie,
+  setModalPreviewIsOpen,
+  loadLocalStorage,
+  setByPassWalletConnect,
+} = moviesSlice.actions
 
 export default moviesSlice.reducer

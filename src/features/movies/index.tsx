@@ -1,4 +1,8 @@
-import {useWallet} from '@solana/wallet-adapter-react'
+import {TOKEN_PROGRAM_ID} from '@solana/spl-token'
+import * as SPLToken from '@solana/spl-token'
+import {useConnection, useWallet} from '@solana/wallet-adapter-react'
+import type {Connection} from '@solana/web3.js'
+import {PublicKey} from '@solana/web3.js'
 import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
@@ -10,16 +14,47 @@ import WalletConnect from '@/components/common/WalletConnect'
 import CardContainer from '@/components/movies/CardContainer'
 import CardItem from '@/components/movies/CardItem'
 import SearchForm from '@/components/movies/SearchForm'
+import {ELIGIBLE_NFT_MINTS} from '@/constants'
 import {
   fetchMoreMovies,
   fetchMovies,
   loadLocalStorage,
+  setByPassWalletConnect,
   setModalPreviewIsOpen,
   setSelectedMovie,
 } from '@/features/movies/moviesSlice'
 
 const Movies = () => {
   const wallet = useWallet()
+  const {connection} = useConnection()
+  const [mints, setMints] = useState([])
+  const [checkWalletStatus, setCheckWalletStatus] = useState('idle')
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getAllTokensFromWallet = async (
+    publicKey: PublicKey,
+    connection: Connection,
+  ) => {
+    setCheckWalletStatus('loading')
+    const response = await connection.getTokenAccountsByOwner(publicKey, {
+      programId: TOKEN_PROGRAM_ID,
+    })
+    const mints: any = response.value.map(e => {
+      const accountInfo = SPLToken.AccountLayout.decode(e.account.data)
+      return new PublicKey(accountInfo.mint).toString()
+    })
+    const filteredMints = mints.filter((mint: string) =>
+      ELIGIBLE_NFT_MINTS.includes(mint),
+    )
+    setMints(filteredMints)
+    setCheckWalletStatus('done')
+  }
+
+  useEffect(() => {
+    if (wallet.publicKey) {
+      getAllTokensFromWallet(wallet.publicKey, connection)
+    }
+  }, [wallet.publicKey, connection])
 
   const movies = useSelector((state: any) => state.movies.movies)
   const pageNumber = useSelector((state: any) => state.movies.pageNumber)
@@ -38,6 +73,9 @@ const Movies = () => {
     (state: any) => state.movies.searchValue,
   )
   const moviesStorage = useSelector((state: any) => state.movies.moviesStorage)
+  const byPassWalletConnect = useSelector(
+    (state: any) => state.movies.byPassWalletConnect,
+  )
 
   const [searchValue, setSearchValue] = useState(initialSearchValue)
   const dispatch = useDispatch()
@@ -51,7 +89,11 @@ const Movies = () => {
 
   const router = useRouter()
 
-  return (wallet.connected && wallet.publicKey) || 1 === 1 ? (
+  return (wallet.connected &&
+    wallet.publicKey &&
+    checkWalletStatus === 'done' &&
+    mints?.length > 0) ||
+    byPassWalletConnect ? (
     <>
       <SearchForm
         searchValue={searchValue}
@@ -151,7 +193,11 @@ const Movies = () => {
       )}
     </>
   ) : (
-    <WalletConnect />
+    <WalletConnect
+      mints={mints}
+      checkWalletStatus={checkWalletStatus}
+      onByPassWalletConnectClick={() => dispatch(setByPassWalletConnect())}
+    />
   )
 }
 

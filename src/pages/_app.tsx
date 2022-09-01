@@ -5,7 +5,6 @@ import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from '@solana/wallet-adapter-wallets'
-import {clusterApiUrl} from '@solana/web3.js'
 import type {AppProps} from 'next/app'
 import Head from 'next/head'
 import {useMemo} from 'react'
@@ -24,8 +23,7 @@ function MyApp({Component, pageProps}: AppProps) {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
   const network = WalletAdapterNetwork.Mainnet
 
-  // You can also provide a custom RPC endpoint
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  const endpoint = 'https://ssc-dao.genesysgo.net'
 
   // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
   // Only the wallets you configure here will be compiled into your application, and only the dependencies
