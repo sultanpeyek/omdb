@@ -10,9 +10,6 @@ import Main from '@/layouts/main'
 
 const Home: NextPage = () => {
   const selectedMovie = useSelector((state: any) => state.movies.selectedMovie)
-  const fetchMovieStatus = useSelector(
-    (state: any) => state.movies.fetchMovieStatus,
-  )
   const modalPreviewIsOpen = useSelector(
     (state: any) => state.movies.modalPreviewIsOpen,
   )
@@ -22,10 +19,10 @@ const Home: NextPage = () => {
   const {id} = router.query
 
   useEffect(() => {
-    if (fetchMovieStatus === 'idle' && id && router.isReady) {
+    if (id && router.isReady) {
       dispatch(fetchMovie(id))
     }
-  }, [id, router.isReady, fetchMovieStatus, dispatch])
+  }, [id, router.isReady, dispatch])
 
   return (
     <Main>

@@ -10,7 +10,6 @@ import CardContainer from '@/components/movies/CardContainer'
 import CardItem from '@/components/movies/CardItem'
 import SearchForm from '@/components/movies/SearchForm'
 import {
-  fetchMovie,
   fetchMovies,
   setModalPreviewIsOpen,
   setSelectedMovie,
@@ -19,7 +18,7 @@ import {
 const Movies = () => {
   const wallet = useWallet()
 
-  const movies = useSelector((state: any) => state.movies.data)
+  const movies = useSelector((state: any) => state.movies.movies)
   const fetchMoviesStatus = useSelector(
     (state: any) => state.movies.fetchMoviesStatus,
   )
@@ -60,13 +59,13 @@ const Movies = () => {
       />
       {fetchMoviesStatus === 'loading' ? (
         <LoadingSpinner />
-      ) : movies && movies.length > 0 ? (
+      ) : movies && movies.Search?.length > 0 ? (
         <>
           <div className="container pt-4 text-center md:pt-8">
             Results for <strong>&ldquo;{initialSearchValue}&rdquo;</strong>
           </div>
           <CardContainer>
-            {movies.map((movie: any) => (
+            {movies.Search.map((movie: any) => (
               <CardItem
                 key={movie.imdbID}
                 title={movie.Title}
@@ -75,7 +74,6 @@ const Movies = () => {
                 type={movie.Type}
                 poster={movie.Poster}
                 onClick={() => {
-                  dispatch(fetchMovie(movie.imdbID))
                   router.push(`/movie/${movie.imdbID}`)
                   dispatch(setSelectedMovie(movie))
                 }}
@@ -85,6 +83,9 @@ const Movies = () => {
                 }}
               />
             ))}
+            <div className="col-span-2 p-4 text-center text-white bg-gray-800 rounded shadow-sm cursor-pointer md:col-span-3 shadow-black">
+              Load More ...
+            </div>
           </CardContainer>
           <ModalPreview
             poster={selectedMovie?.Poster}

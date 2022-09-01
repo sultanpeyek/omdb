@@ -25,7 +25,7 @@ export const fetchMovie: any = createAsyncThunk(
 export const moviesSlice = createSlice({
   name: 'movies',
   initialState: {
-    data: [],
+    movies: [],
     fetchMoviesStatus: 'idle',
     error: null,
     searchValue: '',
@@ -49,7 +49,7 @@ export const moviesSlice = createSlice({
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.fetchMoviesStatus = 'succeeded'
         state.searchValue = action.payload.searchValue
-        state.data = action.payload.data.Search
+        state.movies = action.payload.data
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.fetchMoviesStatus = 'failed'
