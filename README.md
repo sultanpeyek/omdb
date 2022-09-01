@@ -90,7 +90,7 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 ## Features Checklist
 
 - [x] Display List of movies
-- [ ] Use Infinite Scroll without plugin if total results which exceed than 5
+- [ ] Use Infinite Scroll without plugin if total results are exceed than 5
       **(Basic functionality has been implemented)**
 - [x] Search movies by keyword
 - [x] Single Page for Single Movie Detail
