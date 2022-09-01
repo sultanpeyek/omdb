@@ -5,9 +5,9 @@ import {AiOutlineZoomIn} from 'react-icons/ai'
 import {isValidUrl, shimmer} from '@/utils'
 
 const Detail = (props: any) => {
-  const fallbackSrc = '/assets/pfp.png'
+  const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
-    isValidUrl(props.Poster) ? props.Poster : null,
+    isValidUrl(props.Poster) ? props.Poster : fallbackSrc,
   )
 
   useEffect(() => {
@@ -24,7 +24,9 @@ const Detail = (props: any) => {
             {posterSrc && (
               <div
                 className="basis-[300px] max-w-[300px] group relative cursor-pointer mx-auto md:order-2"
-                onClick={props.onHandleImageClick}
+                onClick={
+                  posterSrc !== fallbackSrc ? props.onHandleImageClick : null
+                }
               >
                 <Image
                   key={props.imdbID}
@@ -48,11 +50,15 @@ const Detail = (props: any) => {
                   objectPosition="center"
                   priority={true}
                 />
-                <div className="absolute top-0 bottom-0 w-full h-full transition-opacity duration-200 opacity-0 bg-black/20 group-hover:opacity-100"></div>
-                <AiOutlineZoomIn
-                  className="absolute transition-opacity duration-200 opacity-0 right-4 bottom-4 group-hover:opacity-100"
-                  size={32}
-                />
+                {posterSrc !== fallbackSrc && (
+                  <>
+                    <div className="absolute top-0 bottom-0 w-full h-full transition-opacity duration-200 opacity-0 bg-black/20 group-hover:opacity-100"></div>
+                    <AiOutlineZoomIn
+                      className="absolute transition-opacity duration-200 opacity-0 right-4 bottom-4 group-hover:opacity-100"
+                      size={32}
+                    />
+                  </>
+                )}
               </div>
             )}
             <div className="flex-auto py-2 mb-2 md:order-1 md:min-h-[431px]">

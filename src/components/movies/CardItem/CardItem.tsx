@@ -5,7 +5,7 @@ import {AiOutlineZoomIn} from 'react-icons/ai'
 import {capitalizeText, isValidUrl, shimmer} from '@/utils'
 
 const CardItem = (props: any) => {
-  const fallbackSrc = '/assets/pfp.png'
+  const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
     isValidUrl(props.Poster) ? props.Poster : fallbackSrc,
   )
@@ -43,6 +43,8 @@ const CardItem = (props: any) => {
                 ? 'bg-yellow-400'
                 : props.Type === 'series'
                 ? 'bg-green-400'
+                : props.Type === 'game'
+                ? 'bg-red-400'
                 : 'bg-white'
             }`}
           >

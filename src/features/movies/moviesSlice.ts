@@ -7,7 +7,7 @@ import {DEFAULT_SEARCH_QUERY} from '@/constants'
 export const fetchMovies: any = createAsyncThunk(
   'movies/fetchMovies',
   async (searchValue: string) => {
-    if (!searchValue && searchValue === '') {
+    if (!searchValue || searchValue === '') {
       searchValue = DEFAULT_SEARCH_QUERY
     }
     const response: any = await getMoviesBySearchValue(searchValue, 1)
@@ -20,7 +20,7 @@ export const fetchMoreMovies: any = createAsyncThunk(
   async (options: any) => {
     const {pageNumber} = options
     let {searchValue} = options
-    if (!searchValue && searchValue === '') {
+    if (!searchValue || searchValue === '') {
       searchValue = DEFAULT_SEARCH_QUERY
     }
     const response: any = await getMoviesBySearchValue(searchValue, pageNumber)

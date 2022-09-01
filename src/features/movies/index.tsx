@@ -42,7 +42,7 @@ const Movies = () => {
 
   useEffect(() => {
     if (fetchMoviesStatus === 'idle') {
-      dispatch(fetchMovies('Batman'))
+      dispatch(fetchMovies())
     }
   }, [fetchMoviesStatus, dispatch])
 
@@ -61,7 +61,7 @@ const Movies = () => {
         onSearchButtonClick={() => dispatch(fetchMovies(searchValue))}
         onSearchResetClick={() => {
           setSearchValue('')
-          dispatch(fetchMovies(searchValue))
+          dispatch(fetchMovies())
         }}
       />
       {fetchMoviesStatus === 'loading' ? (

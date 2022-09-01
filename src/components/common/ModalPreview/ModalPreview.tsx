@@ -6,7 +6,7 @@ import useOnClickOutside from '@/hooks/useOnClickOutside'
 import {isValidUrl} from '@/utils'
 
 const ModalPreview = (props: any) => {
-  const fallbackSrc = '/assets/pfp.png'
+  const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
     isValidUrl(props.poster) ? props.poster : fallbackSrc,
   )
