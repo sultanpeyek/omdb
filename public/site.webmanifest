@@ -1,6 +1,6 @@
 {
-  "name": "OMDB",
-  "short_name": "OMDB",
+  "name": "OMDb",
+  "short_name": "OMDb",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

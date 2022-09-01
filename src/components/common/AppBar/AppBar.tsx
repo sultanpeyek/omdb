@@ -11,7 +11,7 @@ const AppBar = () => {
         <Link href="/" passHref>
           <a href="replace" className="flex items-center text-white">
             <span className="p-2 font-bold leading-none tracking-tighter text-center text-black align-middle bg-yellow-400">
-              OMDB
+              OMDb
             </span>
             <span className="hidden ml-4 leading-none align-middle md:flex">
               The Open Movie Database
