@@ -18,7 +18,10 @@ const Detail = (props: any) => {
 
   return (
     <>
-      <div className="py-4 text-white bg-gray-700 md:py-8">
+      <div
+        className="py-4 text-white bg-gray-700 md:py-8"
+        key={`detail-${props.imdbID}`}
+      >
         <div className="container">
           <div className="flex-row justify-between block w-full md:flex">
             {posterSrc && (
@@ -29,7 +32,6 @@ const Detail = (props: any) => {
                 }
               >
                 <Image
-                  key={props.imdbID}
                   src={posterSrc}
                   alt=""
                   layout="responsive"
@@ -72,7 +74,7 @@ const Detail = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="container py-8">
+      <div className="container py-8" key={`table-${props.imdbID}`}>
         <table className="table">
           <tbody>
             {props.Rated && (

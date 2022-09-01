@@ -10,6 +10,25 @@ export const isValidUrl = (url: string) => {
   )
 }
 
+export const addToLocalStorage: any = (newData: any) => {
+  const oldLocaleStorageData: any = localStorage.getItem('movies')
+  const oldLocaleStorageDataParsed: any = JSON.parse(oldLocaleStorageData) || []
+  const newLocaleStorageData: any = oldLocaleStorageDataParsed.concat(newData)
+
+  const newLocaleStorageDataUnique: any = newLocaleStorageData.filter(
+    (item: any, index: any) =>
+      newLocaleStorageData.findIndex(
+        (item2: any) => item2.imdbID === item.imdbID,
+      ) === index,
+  )
+
+  const newLocaleStorageDataSanitized: any = newLocaleStorageDataUnique.filter(
+    (item: any) => item !== null,
+  )
+
+  localStorage.setItem('movies', JSON.stringify(newLocaleStorageDataSanitized))
+}
+
 export const toBase64 = (str: string) =>
   typeof window === 'undefined'
     ? Buffer.from(str).toString('base64')

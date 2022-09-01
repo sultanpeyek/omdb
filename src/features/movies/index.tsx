@@ -1,6 +1,6 @@
 import {useWallet} from '@solana/wallet-adapter-react'
 import {useRouter} from 'next/router'
-import React, {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -13,6 +13,7 @@ import SearchForm from '@/components/movies/SearchForm'
 import {
   fetchMoreMovies,
   fetchMovies,
+  loadLocalStorage,
   setModalPreviewIsOpen,
   setSelectedMovie,
 } from '@/features/movies/moviesSlice'
@@ -36,20 +37,22 @@ const Movies = () => {
   const initialSearchValue = useSelector(
     (state: any) => state.movies.searchValue,
   )
+  const moviesStorage = useSelector((state: any) => state.movies.moviesStorage)
 
-  const [searchValue, setSearchValue] = React.useState(initialSearchValue)
+  const [searchValue, setSearchValue] = useState(initialSearchValue)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (fetchMoviesStatus === 'idle') {
       dispatch(fetchMovies())
+      dispatch(loadLocalStorage())
     }
   }, [fetchMoviesStatus, dispatch])
 
   const router = useRouter()
 
   return (wallet.connected && wallet.publicKey) || 1 === 1 ? (
-    <React.Fragment>
+    <>
       <SearchForm
         searchValue={searchValue}
         onSearchValueChange={(e: any) => setSearchValue(e.target.value)}
@@ -62,6 +65,20 @@ const Movies = () => {
         onSearchResetClick={() => {
           setSearchValue('')
           dispatch(fetchMovies())
+        }}
+        searchSuggestions={moviesStorage
+          .filter((movie: any) =>
+            movie.Title.toLowerCase().includes(searchValue.toLowerCase()),
+          )
+          .splice(0, 5)}
+        onSearchInputFocus={() => dispatch(loadLocalStorage())}
+        onAutoCompleteItemClick={(imdbID: string) => {
+          router.push(`/movie/${imdbID}`)
+          dispatch(
+            setSelectedMovie(
+              moviesStorage.find((m: any) => m.imdbID === imdbID),
+            ),
+          )
         }}
       />
       {fetchMoviesStatus === 'loading' ? (
@@ -132,7 +149,7 @@ const Movies = () => {
       ) : (
         <></>
       )}
-    </React.Fragment>
+    </>
   ) : (
     <WalletConnect />
   )

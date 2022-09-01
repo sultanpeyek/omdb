@@ -1,9 +1,18 @@
+import {useRef, useState} from 'react'
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
 
 import SearchAutoCompleteContainer from '@/components/movies/SearchAutoCompleteContainer'
 import SearchAutoCompleteItem from '@/components/movies/SearchAutoCompleteItem'
+import useOnClickOutside from '@/hooks/useOnClickOutside'
 
 const SearchForm = (props: any) => {
+  const [isInputOnFocus, setIsInputOnFocus] = useState(false)
+
+  const ref: any = useRef()
+  useOnClickOutside(ref, () => {
+    setIsInputOnFocus(false)
+  })
+
   return (
     <div className="py-4 bg-gray-700 md:py-8">
       <div className="container">
@@ -29,25 +38,35 @@ const SearchForm = (props: any) => {
               minLength={3}
               value={props.searchValue}
               onChange={props.onSearchValueChange}
-              onKeyDown={
+              onKeyDown={e => {
+                isInputOnFocus === false && setIsInputOnFocus(true)
                 props.searchValue === '' || props.searchValue.length > 2
-                  ? props.onSearchKeyDown
+                  ? props.onSearchKeyDown(e)
                   : null
-              }
+              }}
+              onFocus={() => {
+                props.onSearchInputFocus && props.onSearchInputFocus()
+                setIsInputOnFocus(true)
+              }}
             />
           </div>
           <button
             className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-400 [&:disabled]:text-gray-600"
             disabled={props.searchValue !== '' && props.searchValue.length < 3}
             onClick={props.onSearchButtonClick}
-            onMouseDown={e => e.preventDefault()}
           >
             <AiOutlineSearch size={24} />
           </button>
-          {1 !== 1 && (
-            <SearchAutoCompleteContainer>
-              <SearchAutoCompleteItem />
-              <SearchAutoCompleteItem />
+          {isInputOnFocus && props.searchSuggestions && (
+            <SearchAutoCompleteContainer containerRef={ref}>
+              {props.searchSuggestions.map((result: any, index: number) => (
+                <SearchAutoCompleteItem
+                  key={`autocomplete-${result.imdbID || index}`}
+                  onClick={() => props.onAutoCompleteItemClick(result.imdbID)}
+                >
+                  {result.Title}
+                </SearchAutoCompleteItem>
+              ))}
             </SearchAutoCompleteContainer>
           )}
         </div>
