@@ -29,6 +29,64 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 
 - Node.js version: `v16.13.0`
 
+## Folder Structure
+
+```
+├── public
+│   ├── assets
+│   │   └── placeholder.png
+│   ├── favicon.ico
+├── src
+│   ├── api
+│   │   └── movies.tsx
+│   ├── app
+│   │   └── store.ts
+│   ├── components
+│   │   ├── common
+│   │   │   ├── AppBar
+│   │   │   │   ├── AppBar.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── Footer
+│   │   │   ├── LoadingSpinner
+│   │   │   ├── ModalPreview
+│   │   │   └── WalletConnect
+│   │   └── movies
+│   │       ├── CardContainer
+│   │       │   ├── CardContainer.tsx
+│   │       │   └── index.ts
+│   │       ├── CardItem
+│   │       │   ├── CardItem.tsx
+│   │       │   └── index.ts
+│   │       ├── Detail
+│   │       ├── SearchAutoCompleteContainer
+│   │       ├── SearchAutoCompleteItem
+│   │       └── SearchForm
+│   ├── constants
+│   │   └── index.ts
+│   ├── contexts
+│   │   └── application.tsx
+│   ├── features
+│   │   └── movies
+│   │       ├── Movies.spec.tsx
+│   │       ├── index.tsx
+│   │       └── moviesSlice.ts
+│   ├── hooks
+│   │   ├── useOnClickOutside.ts
+│   │   └── useRouteUrlHistory.ts
+│   ├── layouts
+│   │   └── main.tsx
+│   ├── pages
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── index.tsx
+│   │   └── movie
+│   │       └── [id].tsx
+│   ├── styles
+│   │   └── globals.css
+│   └── utils
+│       └── index.ts
+```
+
 ## Features Checklist
 
 - [x] Display List of movies
