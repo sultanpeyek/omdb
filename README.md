@@ -9,8 +9,7 @@ FE Engineer Exercise.
 ## How to Run on Local Machine
 
 Create `.env.local` file in the project's root folder `/`. If you don't have the
-api key, you can generate it here
-[OMDb API](https://www.omdbapi.com/apikey.aspx).
+api key, you can generate it [here](https://www.omdbapi.com/apikey.aspx).
 
 ```bash
 NEXT_PUBLIC_OMDB_API_KEY=xxxxx
