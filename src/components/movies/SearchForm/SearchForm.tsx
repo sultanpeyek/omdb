@@ -30,13 +30,15 @@ const SearchForm = (props: any) => {
               value={props.searchValue}
               onChange={props.onSearchValueChange}
               onKeyDown={
-                props.searchValue.length > 2 ? props.onSearchKeyDown : null
+                props.searchValue === '' || props.searchValue.length > 2
+                  ? props.onSearchKeyDown
+                  : null
               }
             />
           </div>
           <button
             className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-400 [&:disabled]:text-gray-600"
-            disabled={props.searchValue.length < 3}
+            disabled={props.searchValue !== '' && props.searchValue.length < 3}
             onClick={props.onSearchButtonClick}
             onMouseDown={e => e.preventDefault()}
           >

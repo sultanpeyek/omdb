@@ -45,7 +45,7 @@ const Movies = () => {
       />
       {moviesStatus === 'loading' ? (
         <LoadingSpinner />
-      ) : movies ? (
+      ) : movies && movies.length > 0 ? (
         <>
           <div className="container pt-4 text-center md:pt-8">
             Results for <strong>&ldquo;{initialSearchValue}&rdquo;</strong>
@@ -63,11 +63,13 @@ const Movies = () => {
             ))}
           </CardContainer>
         </>
-      ) : (
+      ) : initialSearchValue ? (
         <div className="container pt-4 text-center md:pt-8">
           No results found for{' '}
           <strong>&ldquo;{initialSearchValue}&rdquo;</strong>
         </div>
+      ) : (
+        <></>
       )}
     </React.Fragment>
   ) : (

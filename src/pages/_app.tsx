@@ -1,5 +1,3 @@
-import '@solana/wallet-adapter-react-ui/styles.css'
-
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base'
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react'
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui'
@@ -12,12 +10,14 @@ import type {AppProps} from 'next/app'
 import Head from 'next/head'
 import {useMemo} from 'react'
 import {Provider} from 'react-redux'
+import {ToastContainer} from 'react-toastify'
 
 import store from '@/app/store'
 import {DESCRIPTION, SITE_URL, TITLE, TWITTER_USERNAME} from '@/constants'
 import {ApplicationProvider} from '@/contexts/application'
 
 require('@solana/wallet-adapter-react-ui/styles.css')
+require('react-toastify/dist/ReactToastify.css')
 require('../styles/globals.css')
 
 function MyApp({Component, pageProps}: AppProps) {
@@ -90,6 +90,7 @@ function MyApp({Component, pageProps}: AppProps) {
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
+      <ToastContainer />
     </Provider>
   )
 }
