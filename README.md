@@ -2,6 +2,10 @@
 
 FE Engineer Exercise.
 
+[Link to Demo](https://sultanpeyek-omdb.vercel.app/)
+
+---
+
 ## How to Run on Local Machine
 
 Create `.env.local` file in the project's root folder `/`. If you don't have the
