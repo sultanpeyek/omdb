@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import {useState} from 'react'
+import {AiOutlineZoomIn} from 'react-icons/ai'
 
 import {capitalizeText, isValidUrl, shimmer} from '@/utils'
 
@@ -11,10 +11,10 @@ const CardItem = (props: any) => {
   )
 
   return (
-    <Link href={`/movie/${props.imdbID}`} passHref>
-      <a
-        href="replace"
-        className="relative flex flex-col overflow-hidden text-white bg-gray-800 rounded-md shadow-lg shadow-gray-500 group"
+    <div className="relative flex text-white group">
+      <div
+        className="relative flex flex-col flex-auto overflow-hidden text-white bg-gray-800 rounded-md shadow-lg cursor-pointer shadow-gray-500 group"
+        onClick={props.onClick}
       >
         <div className="relative mb-4 aspect-[200/311]">
           <Image
@@ -38,7 +38,7 @@ const CardItem = (props: any) => {
           />
           <div className="absolute top-0 bottom-0 w-full h-full transition-opacity duration-200 opacity-0 bg-black/10 group-hover:opacity-100"></div>
           <div
-            className={`absolute px-3 py-1 text-xs font-semibold text-black top-4 right-4 rounded-2xl ${
+            className={`absolute px-3 py-1 text-xs font-semibold text-black bottom-4 right-4 rounded-2xl ${
               props.type === 'movie'
                 ? 'bg-yellow-400'
                 : props.type === 'series'
@@ -55,8 +55,11 @@ const CardItem = (props: any) => {
             Released in {props.year}
           </div>
         </div>
-      </a>
-    </Link>
+      </div>
+      <button className="absolute transition-opacity duration-200 opacity-0 cursor-pointer top-4 right-4 group-hover:opacity-100">
+        <AiOutlineZoomIn size={32} onClick={props.onPreviewImageClick} />
+      </button>
+    </div>
   )
 }
 

@@ -1,19 +1,29 @@
 import {useWallet} from '@solana/wallet-adapter-react'
+import {useRouter} from 'next/router'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 import LoadingSpinner from '@/components/common/LoadingSpinner'
+import ModalPreview from '@/components/common/ModalPreview'
 import WalletConnect from '@/components/common/WalletConnect'
 import CardContainer from '@/components/movies/CardContainer'
 import CardItem from '@/components/movies/CardItem'
 import SearchForm from '@/components/movies/SearchForm'
-import {fetchMovies} from '@/features/movies/moviesSlice'
+import {
+  fetchMovies,
+  setModalPreviewIsOpen,
+  setSelectedMovie,
+} from '@/features/movies/moviesSlice'
 
 const Movies = () => {
   const wallet = useWallet()
 
   const movies = useSelector((state: any) => state.movies.data)
   const moviesStatus = useSelector((state: any) => state.movies.status)
+  const modalPreviewIsOpen = useSelector(
+    (state: any) => state.movies.modalPreviewIsOpen,
+  )
+  const selectedMovie = useSelector((state: any) => state.movies.selectedMovie)
   const initialSearchValue = useSelector(
     (state: any) => state.movies.searchValue,
   )
@@ -26,6 +36,8 @@ const Movies = () => {
       dispatch(fetchMovies())
     }
   }, [moviesStatus, dispatch])
+
+  const router = useRouter()
 
   return wallet.connected && wallet.publicKey ? (
     <React.Fragment>
@@ -59,9 +71,23 @@ const Movies = () => {
                 year={movie.Year}
                 type={movie.Type}
                 poster={movie.Poster}
+                onClick={() => {
+                  router.push(`/movie/${movie.imdbID}`)
+                  dispatch(setSelectedMovie(movie))
+                }}
+                onPreviewImageClick={() => {
+                  dispatch(setSelectedMovie(movie))
+                  dispatch(setModalPreviewIsOpen(true))
+                }}
               />
             ))}
           </CardContainer>
+          <ModalPreview
+            poster={selectedMovie?.Poster}
+            open={modalPreviewIsOpen}
+            onCloseButtonClick={() => dispatch(setModalPreviewIsOpen(false))}
+            onClickOutside={() => dispatch(setModalPreviewIsOpen(false))}
+          />
         </>
       ) : initialSearchValue ? (
         <div className="container pt-4 text-center md:pt-8">

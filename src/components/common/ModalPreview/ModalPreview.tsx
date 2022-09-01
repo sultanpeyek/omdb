@@ -1,23 +1,45 @@
 import Image from 'next/image'
+import {useEffect, useRef, useState} from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
 
-const ModalPreview = ({open, modalRef}: any) => {
+import useOnClickOutside from '@/hooks/useOnClickOutside'
+import {isValidUrl} from '@/utils'
+
+const ModalPreview = (props: any) => {
+  const fallbackSrc = '/assets/pfp.png'
+  const [posterSrc, setPosterSrc] = useState(
+    isValidUrl(props.poster) ? props.poster : fallbackSrc,
+  )
+
+  useEffect(() => {
+    if (isValidUrl(props.poster)) {
+      setPosterSrc(props.poster)
+    }
+  }, [props.poster])
+
+  const ref: any = useRef()
+
+  useOnClickOutside(ref, () => {
+    props.onClickOutside && props.onClickOutside()
+  })
+
   return (
     <div
       className={`fixed top-0 left-0 right-0 bottom-0 w-full z-50 bg-black/70 ${
-        open ? 'block' : 'hidden'
+        props.open ? 'block' : 'hidden'
       }`}
     >
       <AiOutlineClose
         size={32}
         className="absolute text-white cursor-pointer top-4 right-4"
+        onClick={props.onCloseButtonClick}
       />
       <div
-        ref={modalRef}
+        ref={ref}
         className="relative max-w-lg mx-auto top-[50%] -translate-y-[50%]"
       >
         <Image
-          src="https://m.media-amazon.com/images/M/MV5BNmY4ZDZjY2UtOWFiYy00MjhjLThmMjctOTQ2NjYxZGRjYmNlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg"
+          src={posterSrc}
           alt=""
           width={1000}
           height={1000}
@@ -25,6 +47,15 @@ const ModalPreview = ({open, modalRef}: any) => {
           objectFit="contain"
           objectPosition="center"
           draggable={false}
+          onLoadingComplete={result => {
+            if (result.naturalWidth === 0) {
+              // Broken image
+              setPosterSrc(fallbackSrc)
+            }
+          }}
+          onError={() => {
+            setPosterSrc(fallbackSrc)
+          }}
         />
       </div>
     </div>

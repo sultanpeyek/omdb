@@ -21,13 +21,15 @@ export const moviesSlice = createSlice({
     status: 'idle',
     error: null,
     searchValue: '',
+    modalPreviewIsOpen: false,
+    selectedMovie: null,
   },
   reducers: {
-    search: () => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
+    setSelectedMovie: (state: any, action: any) => {
+      state.selectedMovie = action.payload
+    },
+    setModalPreviewIsOpen: (state: any, _action: any) => {
+      state.modalPreviewIsOpen = _action.payload
     },
   },
   extraReducers(builder) {
@@ -52,6 +54,6 @@ export const moviesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {search} = moviesSlice.actions
+export const {setSelectedMovie, setModalPreviewIsOpen} = moviesSlice.actions
 
 export default moviesSlice.reducer
