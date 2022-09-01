@@ -7,7 +7,7 @@ import {capitalizeText, isValidUrl, shimmer} from '@/utils'
 const CardItem = (props: any) => {
   const fallbackSrc = '/assets/pfp.png'
   const [posterSrc, setPosterSrc] = useState(
-    isValidUrl(props.poster) ? props.poster : fallbackSrc,
+    isValidUrl(props.Poster) ? props.Poster : fallbackSrc,
   )
 
   return (
@@ -39,20 +39,20 @@ const CardItem = (props: any) => {
           <div className="absolute top-0 bottom-0 w-full h-full transition-opacity duration-200 opacity-0 bg-black/10 group-hover:opacity-100"></div>
           <div
             className={`absolute px-3 py-1 text-xs font-semibold text-black bottom-4 right-4 rounded-2xl ${
-              props.type === 'movie'
+              props.Type === 'movie'
                 ? 'bg-yellow-400'
-                : props.type === 'series'
+                : props.Type === 'series'
                 ? 'bg-green-400'
                 : 'bg-white'
             }`}
           >
-            {capitalizeText(props.type)}
+            {capitalizeText(props.Type || '')}
           </div>
         </div>
         <div className="flex flex-col items-stretch flex-auto w-full">
-          <h2 className="flex-auto px-4 text-md">{props.title}</h2>
+          <h2 className="flex-auto px-4 text-md">{props.Title}</h2>
           <div className="px-4 pt-4 mt-4 mb-4 text-sm border-t shrink-0 border-t-gray-500/25">
-            Released in {props.year}
+            Released in {props.Year}
           </div>
         </div>
       </div>

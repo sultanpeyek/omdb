@@ -7,9 +7,14 @@ export type Movie = {
   email: string
 }
 
-export const getMoviesBySearchValue = (searchValue: string) => {
+export const getMoviesBySearchValue = (
+  searchValue: string,
+  pageNumber: number,
+) => {
   return axios.get(
-    `https://www.omdbapi.com?s=${searchValue}&apikey=${process.env.OMDB_API_KEY}`,
+    `https://www.omdbapi.com?s=${searchValue}&page=${pageNumber.toString()}&apikey=${
+      process.env.OMDB_API_KEY
+    }`,
   )
 }
 
