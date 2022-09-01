@@ -19,9 +19,11 @@ const Home: NextPage = () => {
   const {id} = router.query
 
   useEffect(() => {
-    if (id && router.isReady) {
+    if (router.isReady) {
       dispatch(fetchMovie(id))
     }
+
+    console.log(id)
   }, [id, router.isReady, dispatch])
 
   return (
@@ -36,7 +38,9 @@ const Home: NextPage = () => {
         poster={selectedMovie?.Poster}
         open={modalPreviewIsOpen}
         onCloseButtonClick={() => dispatch(setModalPreviewIsOpen(false))}
-        onClickOutside={() => dispatch(setModalPreviewIsOpen(false))}
+        onClickOutside={() => {
+          modalPreviewIsOpen === true && dispatch(setModalPreviewIsOpen(false))
+        }}
       />
     </Main>
   )

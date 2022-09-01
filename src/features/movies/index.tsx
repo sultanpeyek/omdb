@@ -70,15 +70,15 @@ const Movies = () => {
           .filter((movie: any) =>
             movie.Title.toLowerCase().includes(searchValue.toLowerCase()),
           )
-          .splice(0, 5)}
+          .slice(0, 5)}
         onSearchInputFocus={() => dispatch(loadLocalStorage())}
         onAutoCompleteItemClick={(imdbID: string) => {
-          router.push(`/movie/${imdbID}`)
           dispatch(
             setSelectedMovie(
               moviesStorage.find((m: any) => m.imdbID === imdbID),
             ),
           )
+          router.push(`/movie/${imdbID}`)
         }}
       />
       {fetchMoviesStatus === 'loading' ? (
@@ -100,8 +100,8 @@ const Movies = () => {
               <CardItem
                 key={movie?.imdbID || index}
                 onClick={() => {
-                  router.push(`/movie/${movie.imdbID}`)
                   dispatch(setSelectedMovie(movie))
+                  router.push(`/movie/${movie.imdbID}`)
                 }}
                 onPreviewImageClick={() => {
                   dispatch(setSelectedMovie(movie))
