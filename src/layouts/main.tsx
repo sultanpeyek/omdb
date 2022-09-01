@@ -8,7 +8,9 @@ const Main = ({children}: any) => {
     <React.Fragment>
       <div className="flex flex-col min-h-screen">
         <AppBar />
-        <main className="flex-auto min-h-[calc(100vh-144px)]">{children}</main>
+        <main className="flex flex-col flex-auto min-h-[calc(100vh-144px)]">
+          {children}
+        </main>
         <Footer />
       </div>
     </React.Fragment>

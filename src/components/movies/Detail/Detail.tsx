@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
-import {AiOutlineZoomIn} from 'react-icons/ai'
+import {AiOutlineLoading3Quarters, AiOutlineZoomIn} from 'react-icons/ai'
 
 import {isValidUrl, shimmer} from '@/utils'
 
@@ -18,7 +18,10 @@ const Detail = (props: any) => {
 
   return (
     <>
-      <div className="py-4 text-white bg-gray-700 md:py-8">
+      <div
+        className="py-4 text-white bg-gray-700 md:py-8"
+        key={`detail-${props.imdbID}`}
+      >
         <div className="container">
           <div className="flex-row justify-between block w-full md:flex">
             {posterSrc && (
@@ -71,104 +74,112 @@ const Detail = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="container py-8">
-        <table className="table">
-          <tbody>
-            {props.Rated && (
-              <tr>
-                <td className="pr-4">Rated:</td>
-                <td>TV-PG</td>
-              </tr>
-            )}
-            {props.Released && (
-              <tr>
-                <td className="pr-4">Released:</td>
-                <td>05 Sep 1992</td>
-              </tr>
-            )}
-            {props.Runtime && (
-              <tr>
-                <td className="pr-4">Runtime:</td>
-                <td>23 min</td>
-              </tr>
-            )}
-            {props.Genre && (
-              <tr>
-                <td className="pr-4">Genre:</td>
-                <td>Animation, Action, Adventure</td>
-              </tr>
-            )}
-            {props.Director && (
-              <tr>
-                <td className="pr-4">Director:</td>
-                <td>N/A</td>
-              </tr>
-            )}
-            {props.Writer && (
-              <tr>
-                <td className="pr-4">Writer:</td>
-                <td>Bob Kane, Eric Radomski, Bruce Timm</td>
-              </tr>
-            )}
-            {props.Actors && (
-              <tr>
-                <td className="pr-4">Actors:</td>
-                <td>Kevin Conroy, Loren Lester, Efrem Zimbalist Jr.</td>
-              </tr>
-            )}
-            {props.Plot && (
-              <tr>
-                <td className="pr-4">Plot:</td>
-                <td>
-                  The Dark Knight battles crime in Gotham City with occasional
-                  help from Robin and Batgirl.
-                </td>
-              </tr>
-            )}
-            {props.Language && (
-              <tr>
-                <td className="pr-4">Language:</td>
-                <td>English</td>
-              </tr>
-            )}
-            {props.Country && (
-              <tr>
-                <td className="pr-4">Country:</td>
-                <td>United States</td>
-              </tr>
-            )}
-            {props.Awards && (
-              <tr>
-                <td className="pr-4">Awards:</td>
-                <td>Won 1 Primetime Emmy. 5 wins & 19 nominations total</td>
-              </tr>
-            )}
-            {props.Metascore && (
-              <tr>
-                <td className="pr-4">Metascore:</td>
-                <td>N/A</td>
-              </tr>
-            )}
-            {props.imdbRating && (
-              <tr>
-                <td className="pr-4">imdb Rating:</td>
-                <td>9.0</td>
-              </tr>
-            )}
-            {props.imdbVotes && (
-              <tr>
-                <td className="pr-4">imdb Votes:</td>
-                <td>102,051</td>
-              </tr>
-            )}
-            {props.totalSeasons && (
-              <tr>
-                <td className="pr-4">Total Seasons:</td>
-                <td>4</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div
+        className="container flex flex-col items-start flex-auto py-8"
+        key={`table-${props.imdbID}`}
+      >
+        {props.isLoading ? (
+          <div className="flex flex-row items-center justify-center flex-auto w-full">
+            <span className="ml-4 rotate-360 animate-spin">
+              <AiOutlineLoading3Quarters size={24} />
+            </span>
+          </div>
+        ) : (
+          <table className="table">
+            <tbody>
+              {props.Rated && (
+                <tr>
+                  <td className="pr-4">Rated:</td>
+                  <td>{props.Rated}</td>
+                </tr>
+              )}
+              {props.Released && (
+                <tr>
+                  <td className="pr-4">Released:</td>
+                  <td>{props.Released}</td>
+                </tr>
+              )}
+              {props.Runtime && (
+                <tr>
+                  <td className="pr-4">Runtime:</td>
+                  <td>{props.Runtime}</td>
+                </tr>
+              )}
+              {props.Genre && (
+                <tr>
+                  <td className="pr-4">Genre:</td>
+                  <td>{props.Genre}</td>
+                </tr>
+              )}
+              {props.Director && (
+                <tr>
+                  <td className="pr-4">Director:</td>
+                  <td>{props.Director}</td>
+                </tr>
+              )}
+              {props.Writer && (
+                <tr>
+                  <td className="pr-4">Writer:</td>
+                  <td>{props.Writer}</td>
+                </tr>
+              )}
+              {props.Actors && (
+                <tr>
+                  <td className="pr-4">Actors:</td>
+                  <td>{props.Actors}</td>
+                </tr>
+              )}
+              {props.Plot && (
+                <tr>
+                  <td className="pr-4">Plot:</td>
+                  <td>{props.Plot}</td>
+                </tr>
+              )}
+              {props.Language && (
+                <tr>
+                  <td className="pr-4">Language:</td>
+                  <td>{props.Language}</td>
+                </tr>
+              )}
+              {props.Country && (
+                <tr>
+                  <td className="pr-4">Country:</td>
+                  <td>{props.Country}</td>
+                </tr>
+              )}
+              {props.Awards && (
+                <tr>
+                  <td className="pr-4">Awards:</td>
+                  <td>{props.Awards}</td>
+                </tr>
+              )}
+              {props.Metascore && (
+                <tr>
+                  <td className="pr-4">Metascore:</td>
+                  <td>{props.Metascore}</td>
+                </tr>
+              )}
+              {props.imdbRating && (
+                <tr>
+                  <td className="pr-4">imdb Rating:</td>
+                  <td>{props.imdbRating}</td>
+                </tr>
+              )}
+              {props.imdbVotes && (
+                <tr>
+                  <td className="pr-4">imdb Votes:</td>
+                  <td>{props.imdbVotes}</td>
+                </tr>
+              )}
+              {props.totalSeasons && (
+                <tr>
+                  <td className="pr-4">Total Seasons:</td>
+                  <td>{props.totalSeasons}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   )
