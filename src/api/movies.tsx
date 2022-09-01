@@ -12,3 +12,9 @@ export const getMoviesBySearchValue = (searchValue: string) => {
     `https://www.omdbapi.com?s=${searchValue}&apikey=${process.env.OMDB_API_KEY}`,
   )
 }
+
+export const getMovieByImdbID = (imdbID: string) => {
+  return axios.get(
+    `https://www.omdbapi.com?i=${imdbID}&apikey=${process.env.OMDB_API_KEY}`,
+  )
+}

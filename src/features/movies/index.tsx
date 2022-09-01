@@ -10,6 +10,7 @@ import CardContainer from '@/components/movies/CardContainer'
 import CardItem from '@/components/movies/CardItem'
 import SearchForm from '@/components/movies/SearchForm'
 import {
+  fetchMovie,
   fetchMovies,
   setModalPreviewIsOpen,
   setSelectedMovie,
@@ -19,7 +20,9 @@ const Movies = () => {
   const wallet = useWallet()
 
   const movies = useSelector((state: any) => state.movies.data)
-  const moviesStatus = useSelector((state: any) => state.movies.status)
+  const fetchMoviesStatus = useSelector(
+    (state: any) => state.movies.fetchMoviesStatus,
+  )
   const modalPreviewIsOpen = useSelector(
     (state: any) => state.movies.modalPreviewIsOpen,
   )
@@ -32,10 +35,10 @@ const Movies = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (moviesStatus === 'idle') {
+    if (fetchMoviesStatus === 'idle') {
       dispatch(fetchMovies())
     }
-  }, [moviesStatus, dispatch])
+  }, [fetchMoviesStatus, dispatch])
 
   const router = useRouter()
 
@@ -55,7 +58,7 @@ const Movies = () => {
           dispatch(fetchMovies())
         }}
       />
-      {moviesStatus === 'loading' ? (
+      {fetchMoviesStatus === 'loading' ? (
         <LoadingSpinner />
       ) : movies && movies.length > 0 ? (
         <>
@@ -72,6 +75,7 @@ const Movies = () => {
                 type={movie.Type}
                 poster={movie.Poster}
                 onClick={() => {
+                  dispatch(fetchMovie(movie.imdbID))
                   router.push(`/movie/${movie.imdbID}`)
                   dispatch(setSelectedMovie(movie))
                 }}
