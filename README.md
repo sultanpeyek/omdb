@@ -2,9 +2,28 @@
 
 FE Engineer Exercise.
 
+![mockup-preview](https://user-images.githubusercontent.com/84768757/188052614-d9b47ebc-ff72-42e6-8248-bdd4e2ae336b.png)
+
 [Link to Demo](https://sultanpeyek-omdb.vercel.app/)
 
 ---
+
+## Features Checklist
+
+- [x] Display List of movies
+- [x] Use Infinite Scroll without plugin if total results are exceed than 5
+      **(Basic functionality has been implemented but still need more
+      polishing)**
+- [x] Search movies by keyword
+- [x] Single Page for Single Movie Detail
+- [x] Show Movie Poster in a popup modal window when image from the list is
+      clicked
+- [x] Unit test for components **(Only cover render checking at the moment and
+      will be expanded more later)**
+- [x] Autocomplete search box implementation
+- [x] Login mechanism using connect wallet (token-gated)
+- [x] Upload the code to Github account set as public.
+- [x] Upload the result online to Vercel
 
 ## How to Run on Local Machine
 
@@ -44,6 +63,7 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 │   │   ├── common
 │   │   │   ├── AppBar
 │   │   │   │   ├── AppBar.tsx
+│   │       │   ├── AppBar.spec.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── Footer
 │   │   │   ├── LoadingSpinner
@@ -52,9 +72,11 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 │   │   └── movies
 │   │       ├── CardContainer
 │   │       │   ├── CardContainer.tsx
+│   │       │   ├── CardContainer.spec.tsx
 │   │       │   └── index.ts
 │   │       ├── CardItem
 │   │       │   ├── CardItem.tsx
+│   │       │   ├── CardItem.spec.tsx
 │   │       │   └── index.ts
 │   │       ├── Detail
 │   │       ├── SearchAutoCompleteContainer
@@ -71,7 +93,7 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 │   │       └── moviesSlice.ts
 │   ├── hooks
 │   │   ├── useOnClickOutside.ts
-│   │   └── useRouteUrlHistory.ts
+│   │   └── ...
 │   ├── layouts
 │   │   └── main.tsx
 │   ├── pages
@@ -86,20 +108,9 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 │       └── index.ts
 ```
 
-## Features Checklist
+## Test Suites
 
-- [x] Display List of movies
-- [ ] Use Infinite Scroll without plugin if total results are exceed than 5
-      **(Basic functionality has been implemented)**
-- [x] Search movies by keyword
-- [x] Single Page for Single Movie Detail
-- [x] Show Movie Poster in a popup modal window when image from the list is
-      clicked
-- [ ] Unit test for components
-- [x] Autocomplete search box implementation **(Still need more polishing)**
-- [x] Login mechanism using connect wallet (token-gated)
-- [x] Upload the code to Github account set as public.
-- [x] Upload the result online to Vercel
+![preview-testing](https://user-images.githubusercontent.com/84768757/188052404-bd2ca9be-1818-4136-a5dc-0f422317a0b5.png)
 
 ## Highlighted Tech Stacks
 
@@ -113,3 +124,4 @@ Development server is running at [http://localhost:3000](http://localhost:3000).
 - Solana Web 3 JS SDK
 - ESLint
 - Prettier
+- Jest

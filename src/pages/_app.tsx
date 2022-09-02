@@ -12,7 +12,13 @@ import {Provider} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
 import store from '@/app/store'
-import {DESCRIPTION, SITE_URL, TITLE, TWITTER_USERNAME} from '@/constants'
+import {
+  DESCRIPTION,
+  RPC_MAINNET_PRIMARY,
+  SITE_URL,
+  TITLE,
+  TWITTER_USERNAME,
+} from '@/constants'
 import {ApplicationProvider} from '@/contexts/application'
 
 require('@solana/wallet-adapter-react-ui/styles.css')
@@ -22,8 +28,6 @@ require('../styles/globals.css')
 function MyApp({Component, pageProps}: AppProps) {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
   const network = WalletAdapterNetwork.Mainnet
-
-  const endpoint = 'https://ssc-dao.genesysgo.net'
 
   // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
   // Only the wallets you configure here will be compiled into your application, and only the dependencies
@@ -35,7 +39,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
   return (
     <Provider store={store}>
-      <ConnectionProvider endpoint={endpoint}>
+      <ConnectionProvider endpoint={RPC_MAINNET_PRIMARY}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
             <ApplicationProvider>

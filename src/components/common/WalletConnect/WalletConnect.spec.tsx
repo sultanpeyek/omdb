@@ -7,11 +7,10 @@ import {
 } from '@solana/wallet-adapter-wallets'
 import {render, screen} from '@testing-library/react'
 import {Provider} from 'react-redux'
-import {ToastContainer} from 'react-toastify'
 
 import store from '@/app/store'
+import WalletConnect from '@/components/common/WalletConnect'
 import {RPC_MAINNET_PRIMARY} from '@/constants'
-import Movies from '@/features/movies'
 
 const network = WalletAdapterNetwork.Mainnet
 
@@ -20,18 +19,17 @@ const wallets = [
   new SolflareWalletAdapter({network}),
 ]
 
-describe('<Movies />', () => {
+describe('<WalletConnect />', () => {
   it('renders the component', () => {
     render(
       <Provider store={store}>
         <ConnectionProvider endpoint={RPC_MAINNET_PRIMARY}>
           <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
-              <Movies />
+              <WalletConnect />
             </WalletModalProvider>
           </WalletProvider>
         </ConnectionProvider>
-        <ToastContainer />
       </Provider>,
     )
 

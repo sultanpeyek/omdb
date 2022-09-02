@@ -25,7 +25,7 @@ const SearchForm = (props: any) => {
         </div>
         <div className="relative flex flex-row max-w-lg mx-auto">
           <div className="relative flex-auto">
-            {props.searchValue.length > 2 && (
+            {props.searchValue?.length > 2 && (
               <AiOutlineClose
                 size={16}
                 className="absolute right-2 top-[50%] -mt-2 cursor-pointer"
@@ -48,7 +48,7 @@ const SearchForm = (props: any) => {
                 } else {
                   setIsInputOnFocus(true)
                 }
-                props.searchValue === '' || props.searchValue.length > 2
+                props.searchValue === '' || props.searchValue?.length > 2
                   ? props.onSearchKeyDown(e)
                   : null
               }}
@@ -60,7 +60,7 @@ const SearchForm = (props: any) => {
           </div>
           <button
             className="px-4 py-2 font-semibold bg-yellow-400 rounded-r md:text-lg [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-400 [&:disabled]:text-gray-600"
-            disabled={props.searchValue !== '' && props.searchValue.length < 3}
+            disabled={props.searchValue !== '' && props.searchValue?.length < 3}
             onClick={props.onSearchButtonClick}
           >
             <AiOutlineSearch size={24} />

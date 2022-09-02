@@ -5,7 +5,10 @@ const LoadingSpinner = () => {
     <div
       className={`flex flex-row items-center justify-center w-full min-h-[calc(100vh-140px)] text-center`}
     >
-      <span className="self-center rotate-360 animate-spin">
+      <span
+        className="self-center rotate-360 animate-spin"
+        data-testid="loading-spinner"
+      >
         <AiOutlineLoading3Quarters size={64} />
       </span>
     </div>

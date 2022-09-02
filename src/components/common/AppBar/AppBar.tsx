@@ -2,6 +2,8 @@ import {useWallet} from '@solana/wallet-adapter-react'
 import {WalletMultiButton} from '@solana/wallet-adapter-react-ui'
 import Link from 'next/link'
 
+import {DESCRIPTION, TITLE} from '@/constants'
+
 const AppBar = () => {
   const wallet = useWallet()
 
@@ -11,10 +13,10 @@ const AppBar = () => {
         <Link href="/" passHref>
           <a href="replace" className="flex items-center text-white">
             <span className="p-2 font-bold leading-none tracking-tighter text-center text-black align-middle bg-yellow-400">
-              OMDb
+              {TITLE}
             </span>
             <span className="hidden ml-4 leading-none align-middle md:flex">
-              The Open Movie Database
+              {DESCRIPTION}
             </span>
           </a>
         </Link>
