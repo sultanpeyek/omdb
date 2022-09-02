@@ -27,6 +27,7 @@ export const addToLocalStorage: any = (newData: any) => {
   )
 
   localStorage.setItem('movies', JSON.stringify(newLocaleStorageDataSanitized))
+  return newLocaleStorageDataSanitized
 }
 
 export const toBase64 = (str: string) =>

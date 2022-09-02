@@ -12,7 +12,7 @@ const WalletConnect = (props: any) => {
           page.
         </div>
         <div className="flex flex-row justify-center mx-auto">
-          <WalletMultiButton className="px-4 py-2 font-sans font-semibold bg-black" />
+          <WalletMultiButton className="h-12 px-4 py-2 font-sans font-semibold leading-none bg-black" />
         </div>
 
         <div>
@@ -38,7 +38,7 @@ const WalletConnect = (props: any) => {
         <div className="flex flex-row justify-center mx-auto">
           <button
             onClick={props.onByPassWalletConnectClick}
-            className="px-4 py-2 my-4 font-semibold text-white bg-gray-500 rounded"
+            className="h-12 px-4 py-2 my-4 font-semibold leading-none text-white bg-gray-500 rounded"
           >
             Bypass Wallet Connect
           </button>

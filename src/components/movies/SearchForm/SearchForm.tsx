@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
 
 import SearchAutoCompleteContainer from '@/components/movies/SearchAutoCompleteContainer'
@@ -6,12 +6,16 @@ import SearchAutoCompleteItem from '@/components/movies/SearchAutoCompleteItem'
 import useOnClickOutside from '@/hooks/useOnClickOutside'
 
 const SearchForm = (props: any) => {
-  const [isInputOnFocus, setIsInputOnFocus] = useState(false)
+  const [isInputOnFocus, setIsInputOnFocus] = useState(props.isInputOnFocus)
 
   const ref: any = useRef()
   useOnClickOutside(ref, () => {
     setIsInputOnFocus(false)
   })
+
+  useEffect(() => {
+    setIsInputOnFocus(props.isInputOnFocus)
+  }, [props.isInputOnFocus])
 
   return (
     <div className="py-4 bg-gray-700 md:py-8">
@@ -39,14 +43,18 @@ const SearchForm = (props: any) => {
               value={props.searchValue}
               onChange={props.onSearchValueChange}
               onKeyDown={e => {
-                isInputOnFocus === false && setIsInputOnFocus(true)
+                if (e.keyCode === 13) {
+                  setIsInputOnFocus(false)
+                } else {
+                  setIsInputOnFocus(true)
+                }
                 props.searchValue === '' || props.searchValue.length > 2
                   ? props.onSearchKeyDown(e)
                   : null
               }}
               onFocus={() => {
-                props.onSearchInputFocus && props.onSearchInputFocus()
                 setIsInputOnFocus(true)
+                props.onSearchInputFocus && props.onSearchInputFocus()
               }}
             />
           </div>
@@ -57,7 +65,7 @@ const SearchForm = (props: any) => {
           >
             <AiOutlineSearch size={24} />
           </button>
-          {isInputOnFocus && props.searchSuggestions && (
+          {isInputOnFocus && (
             <SearchAutoCompleteContainer containerRef={ref}>
               {props.searchSuggestions.map((result: any, index: number) => (
                 <SearchAutoCompleteItem

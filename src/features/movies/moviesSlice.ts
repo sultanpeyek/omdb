@@ -52,6 +52,7 @@ export const moviesSlice = createSlice({
     fetchMovieStatus: 'idle',
     moviesStorage: [],
     byPassWalletConnect: false,
+    searchInputIsFocus: false,
   },
   reducers: {
     setSelectedMovie: (state: any, action: any) => {
@@ -61,7 +62,10 @@ export const moviesSlice = createSlice({
       state.modalPreviewIsOpen = action.payload
     },
     setByPassWalletConnect: (state: any) => {
-      state.byPassWalletConnect = true
+      state.byPassWalletConnect = !state.byPassWalletConnect
+    },
+    setSearchInputIsFocus: (state: any, action: any) => {
+      state.searchInputIsFocus = action.payload
     },
     loadLocalStorage: (state: any) => {
       state.moviesStorage =
@@ -80,7 +84,7 @@ export const moviesSlice = createSlice({
         state.pageNumber = 1
         state.searchValue = action.payload.searchValue
 
-        addToLocalStorage(state.movies)
+        state.movieStorage = addToLocalStorage(state.movies)
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.fetchMoviesStatus = 'failed'
@@ -101,7 +105,7 @@ export const moviesSlice = createSlice({
         state.movies = [...Array.from(new Set(state.movies))]
         state.pageNumber += 1
 
-        addToLocalStorage(state.movies)
+        state.movieStorage = addToLocalStorage(state.movies)
       })
       .addCase(fetchMoreMovies.rejected, (state, action) => {
         state.fetchMoreMoviesStatus = 'failed'
@@ -131,10 +135,11 @@ export const moviesSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  setSelectedMovie,
-  setModalPreviewIsOpen,
   loadLocalStorage,
   setByPassWalletConnect,
+  setModalPreviewIsOpen,
+  setSearchInputIsFocus,
+  setSelectedMovie,
 } = moviesSlice.actions
 
 export default moviesSlice.reducer

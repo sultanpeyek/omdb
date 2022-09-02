@@ -21,6 +21,7 @@ import {
   loadLocalStorage,
   setByPassWalletConnect,
   setModalPreviewIsOpen,
+  setSearchInputIsFocus,
   setSelectedMovie,
 } from '@/features/movies/moviesSlice'
 
@@ -30,7 +31,6 @@ const Movies = () => {
   const [mints, setMints] = useState([])
   const [checkWalletStatus, setCheckWalletStatus] = useState('idle')
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAllTokensFromWallet = async (
     publicKey: PublicKey,
     connection: Connection,
@@ -76,6 +76,9 @@ const Movies = () => {
   const byPassWalletConnect = useSelector(
     (state: any) => state.movies.byPassWalletConnect,
   )
+  const searchInputIsFocus = useSelector(
+    (state: any) => state.movies.searchInputIsFocus,
+  )
 
   const [searchValue, setSearchValue] = useState(initialSearchValue)
   const dispatch = useDispatch()
@@ -83,8 +86,8 @@ const Movies = () => {
   useEffect(() => {
     if (fetchMoviesStatus === 'idle') {
       dispatch(fetchMovies())
-      dispatch(loadLocalStorage())
     }
+    dispatch(loadLocalStorage())
   }, [fetchMoviesStatus, dispatch])
 
   const router = useRouter()
@@ -100,6 +103,7 @@ const Movies = () => {
         onSearchValueChange={(e: any) => setSearchValue(e.target.value)}
         onSearchKeyDown={(e: any) => {
           if (e.keyCode === 13) {
+            dispatch(setSearchInputIsFocus(false))
             dispatch(fetchMovies(searchValue))
           }
         }}
@@ -113,8 +117,11 @@ const Movies = () => {
             movie.Title.toLowerCase().includes(searchValue.toLowerCase()),
           )
           .slice(0, 5)}
-        onSearchInputFocus={() => dispatch(loadLocalStorage())}
+        onSearchInputFocus={() => {
+          dispatch(loadLocalStorage())
+        }}
         onAutoCompleteItemClick={(imdbID: string) => {
+          dispatch(setSearchInputIsFocus(false))
           dispatch(
             setSelectedMovie(
               moviesStorage.find((m: any) => m.imdbID === imdbID),
@@ -122,6 +129,7 @@ const Movies = () => {
           )
           router.push(`/movie/${imdbID}`)
         }}
+        searchInputIsFocus={searchInputIsFocus}
       />
       {fetchMoviesStatus === 'loading' ? (
         <LoadingSpinner />
@@ -180,7 +188,10 @@ const Movies = () => {
             poster={selectedMovie?.Poster}
             open={modalPreviewIsOpen}
             onCloseButtonClick={() => dispatch(setModalPreviewIsOpen(false))}
-            onClickOutside={() => dispatch(setModalPreviewIsOpen(false))}
+            onClickOutside={() => {
+              modalPreviewIsOpen === true &&
+                dispatch(setModalPreviewIsOpen(false))
+            }}
           />
         </>
       ) : initialSearchValue ? (
