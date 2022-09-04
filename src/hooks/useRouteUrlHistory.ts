@@ -2,16 +2,16 @@
 import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
 
-const EXCEPTIONS: any = []
+const EXCEPTIONS: string[] = []
 
 /**
  * Saves the current URL before changing the route.
  */
 const useRouteUrlHistory = () => {
-  const [previousRoute, setPreviousRouter] = useState('')
+  const [previousRoute, setPreviousRouter] = useState<string>('')
   const router = useRouter()
 
-  const handleBeforeHistoryChange = (url: any) => {
+  const handleBeforeHistoryChange = (url: string) => {
     const [nextUrl] = url?.split('?') || []
     if (
       !(EXCEPTIONS.includes(nextUrl) || EXCEPTIONS.includes(router.asPath)) &&

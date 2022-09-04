@@ -5,7 +5,7 @@ import SearchAutoCompleteItem from '@/components/movies/SearchAutoCompleteItem'
 describe('<SearchAutoCompleteItem />', () => {
   it('renders the component', () => {
     render(
-      <SearchAutoCompleteItem>
+      <SearchAutoCompleteItem onClick={() => true}>
         Testing SearchAutoCompleteItem
       </SearchAutoCompleteItem>,
     )

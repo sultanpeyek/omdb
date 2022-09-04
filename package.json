@@ -18,6 +18,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.16",
     "@solana/wallet-adapter-wallets": "^0.18.7",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "are-passive-events-supported": "^1.1.1",
     "axios": "^0.27.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -29,7 +30,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
-    "react-toastify": "^9.0.8"
+    "react-toastify": "^9.0.8",
+    "use-latest": "^1.2.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.0.0",

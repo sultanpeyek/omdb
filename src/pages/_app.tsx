@@ -11,7 +11,7 @@ import {useMemo} from 'react'
 import {Provider} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
-import store from '@/app/store'
+import {makeStore} from '@/app/store'
 import {
   DESCRIPTION,
   RPC_MAINNET_PRIMARY,
@@ -21,9 +21,12 @@ import {
 } from '@/constants'
 import {ApplicationProvider} from '@/contexts/application'
 
+// Intentionally using require to make sure the CSS is loaded with the correct order.
 require('@solana/wallet-adapter-react-ui/styles.css')
 require('react-toastify/dist/ReactToastify.css')
 require('../styles/globals.css')
+
+const store = makeStore()
 
 function MyApp({Component, pageProps}: AppProps) {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'

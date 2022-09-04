@@ -2,9 +2,15 @@ import Image from 'next/image'
 import {useState} from 'react'
 import {AiOutlineZoomIn} from 'react-icons/ai'
 
+import type {Movie} from '@/api/movies'
 import {capitalizeText, isValidUrl, shimmer} from '@/utils'
 
-const CardItem = (props: any) => {
+const CardItem = (
+  props: Movie & {
+    onClick: React.MouseEventHandler<HTMLDivElement>
+    onPreviewImageClick: () => void
+  },
+) => {
   const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
     isValidUrl(props.Poster) ? props.Poster : fallbackSrc,

@@ -5,7 +5,14 @@ import {AiOutlineClose} from 'react-icons/ai'
 import useOnClickOutside from '@/hooks/useOnClickOutside'
 import {isValidUrl} from '@/utils'
 
-const ModalPreview = (props: any) => {
+export type ModalPreviewProps = {
+  poster: string
+  onClickOutside: () => void
+  open: true
+  onCloseButtonClick: () => void
+}
+
+const ModalPreview = (props: ModalPreviewProps) => {
   const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
     isValidUrl(props.poster) ? props.poster : fallbackSrc,
@@ -17,7 +24,7 @@ const ModalPreview = (props: any) => {
     }
   }, [props.poster])
 
-  const ref: any = useRef()
+  const ref = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(ref, () => {
     props.onClickOutside && props.onClickOutside()

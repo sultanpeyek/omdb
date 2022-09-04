@@ -9,9 +9,11 @@ import {render, screen} from '@testing-library/react'
 import {Provider} from 'react-redux'
 import {ToastContainer} from 'react-toastify'
 
-import store from '@/app/store'
+import {makeStore} from '@/app/store'
 import {RPC_MAINNET_PRIMARY} from '@/constants'
 import Movies from '@/features/movies'
+
+const store = makeStore()
 
 const network = WalletAdapterNetwork.Mainnet
 

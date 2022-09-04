@@ -2,9 +2,15 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import {AiOutlineLoading3Quarters, AiOutlineZoomIn} from 'react-icons/ai'
 
+import type {Movie} from '@/api/movies'
 import {isValidUrl, shimmer} from '@/utils'
 
-const Detail = (props: any) => {
+const Detail = (
+  props: Movie & {
+    onHandleImageClick: React.MouseEventHandler<HTMLElement>
+    isLoading: boolean
+  },
+) => {
   const fallbackSrc = '/assets/placeholder.png'
   const [posterSrc, setPosterSrc] = useState(
     isValidUrl(props.Poster) ? props.Poster : fallbackSrc,
@@ -28,7 +34,9 @@ const Detail = (props: any) => {
               <div
                 className="basis-[300px] max-w-[300px] group relative cursor-pointer mx-auto md:order-2"
                 onClick={
-                  posterSrc !== fallbackSrc ? props.onHandleImageClick : null
+                  posterSrc !== fallbackSrc
+                    ? props.onHandleImageClick
+                    : undefined
                 }
               >
                 <Image

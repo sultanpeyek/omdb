@@ -1,21 +1,27 @@
+import type {PropsWithChildren} from 'react'
 import {useCallback, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
 
-import {fetchMoreMovies} from '@/features/movies/moviesSlice'
+import {
+  fetchMoreMovies,
+  selectFetchMoreMoviesStatus,
+  selectPageNumber,
+  selectSearchValue,
+  selectTotalResults,
+} from '@/features/movies/moviesSlice'
+import {useAppDispatch} from '@/hooks/useAppDispatch'
+import {useAppSelector} from '@/hooks/useAppSelector'
 
-const CardContainer = ({children}: any) => {
-  const dispatch = useDispatch()
+const CardContainer = (props: PropsWithChildren) => {
+  const dispatch = useAppDispatch()
+  const fetchMoreMoviesStatus = useAppSelector(selectFetchMoreMoviesStatus)
+  const searchValue = useAppSelector(selectSearchValue)
+  const pageNumber = useAppSelector(selectPageNumber)
+  const totalResults = useAppSelector(selectTotalResults)
 
-  const fetchMoreMoviesStatus = useSelector(
-    (state: any) => state.movies.fetchMoreMoviesStatus,
-  )
-  const initialSearchValue = useSelector(
-    (state: any) => state.movies.searchValue,
-  )
-  const pageNumber = useSelector((state: any) => state.movies.pageNumber)
-  const totalResults = useSelector((state: any) => state.movies.totalResults)
-
-  const isBottom = (el: any) => {
+  const isBottom = (el: HTMLElement | null) => {
+    if (!el) {
+      return false
+    }
     return el.getBoundingClientRect().bottom <= window.innerHeight
   }
 
@@ -24,12 +30,12 @@ const CardContainer = ({children}: any) => {
     if (isBottom(el) && fetchMoreMoviesStatus !== 'loading') {
       dispatch(
         fetchMoreMovies({
-          searchValue: initialSearchValue,
+          searchValue: searchValue,
           pageNumber: pageNumber + 1,
         }),
       )
     }
-  }, [fetchMoreMoviesStatus, dispatch, pageNumber, initialSearchValue])
+  }, [fetchMoreMoviesStatus, dispatch, pageNumber, searchValue])
 
   useEffect(() => {
     pageNumber < totalResults / 10 &&
@@ -44,7 +50,7 @@ const CardContainer = ({children}: any) => {
       id="card-container"
       className="container grid grid-cols-2 gap-4 py-4 md:py-8 md:gap-8 md:grid-cols-3 max-w-[960px]"
     >
-      {children}
+      {props.children}
     </div>
   )
 }

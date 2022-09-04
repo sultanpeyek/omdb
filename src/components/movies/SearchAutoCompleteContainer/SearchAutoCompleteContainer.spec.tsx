@@ -4,10 +4,13 @@ import SearchAutoCompleteContainer from '@/components/movies/SearchAutoCompleteC
 
 describe('<SearchAutoCompleteContainer />', () => {
   it('renders the component', () => {
+    const ref = {current: {}}
     render(
-      <SearchAutoCompleteContainer>
-        Testing SearchAutoCompleteContainer
-      </SearchAutoCompleteContainer>,
+      <div>
+        <SearchAutoCompleteContainer containerRef={ref}>
+          Testing SearchAutoCompleteContainer
+        </SearchAutoCompleteContainer>
+      </div>,
     )
 
     expect(

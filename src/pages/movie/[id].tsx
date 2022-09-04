@@ -1,29 +1,35 @@
 import type {NextPage} from 'next'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
 
 import ModalPreview from '@/components/common/ModalPreview'
 import Detail from '@/components/movies/Detail'
-import {fetchMovie, setModalPreviewIsOpen} from '@/features/movies/moviesSlice'
+import {
+  fetchMovie,
+  selectFetchMovieStatus,
+  selectModalPreviewIsOpen,
+  selectSelectedMovie,
+  setModalPreviewIsOpen,
+} from '@/features/movies/moviesSlice'
+import {useAppDispatch} from '@/hooks/useAppDispatch'
+import {useAppSelector} from '@/hooks/useAppSelector'
 import Main from '@/layouts/main'
 
 const Home: NextPage = () => {
-  const selectedMovie = useSelector((state: any) => state.movies.selectedMovie)
-  const fetchMovieStatus = useSelector(
-    (state: any) => state.movies.fetchMovieStatus,
-  )
-  const modalPreviewIsOpen = useSelector(
-    (state: any) => state.movies.modalPreviewIsOpen,
-  )
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+
+  const selectedMovie = useAppSelector(selectSelectedMovie)
+  const fetchMovieStatus = useAppSelector(selectFetchMovieStatus)
+  const modalPreviewIsOpen = useAppSelector(selectModalPreviewIsOpen)
+
+  useAppSelector
 
   const router = useRouter()
   const {id} = router.query
 
   useEffect(() => {
     if (id && router.isReady) {
-      dispatch(fetchMovie(id))
+      dispatch(fetchMovie(id as string))
     }
   }, [id, router.isReady, dispatch])
 

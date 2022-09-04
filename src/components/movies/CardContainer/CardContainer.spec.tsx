@@ -8,9 +8,11 @@ import {
 import {render, screen} from '@testing-library/react'
 import {Provider} from 'react-redux'
 
-import store from '@/app/store'
+import {makeStore} from '@/app/store'
 import CardContainer from '@/components/movies/CardContainer'
 import {RPC_MAINNET_PRIMARY} from '@/constants'
+
+const store = makeStore()
 
 const network = WalletAdapterNetwork.Mainnet
 

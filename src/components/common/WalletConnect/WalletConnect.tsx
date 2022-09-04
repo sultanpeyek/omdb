@@ -1,7 +1,13 @@
 import {useWallet} from '@solana/wallet-adapter-react'
 import {WalletMultiButton} from '@solana/wallet-adapter-react-ui'
 
-const WalletConnect = (props: any) => {
+export type WalletConnectProps = {
+  mints: string[]
+  checkWalletStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+  onByPassWalletConnectClick: () => void
+}
+
+const WalletConnect = (props: WalletConnectProps) => {
   const wallet = useWallet()
 
   return (
@@ -18,7 +24,7 @@ const WalletConnect = (props: any) => {
         <div>
           {props.mints?.length > 0 &&
           wallet.connected &&
-          props.checkWalletStatus === 'done' ? (
+          props.checkWalletStatus === 'succeeded' ? (
             <div className="flex flex-col items-center mx-auto mt-4 font-semibold">
               Mints:
               <ul>
@@ -27,7 +33,7 @@ const WalletConnect = (props: any) => {
                 ))}
               </ul>
             </div>
-          ) : wallet.connected && props.checkWalletStatus === 'done' ? (
+          ) : wallet.connected && props.checkWalletStatus === 'succeeded' ? (
             <div className="flex flex-row justify-center mx-auto mt-4 font-semibold">
               No eligible NFTs found in your wallet.
             </div>

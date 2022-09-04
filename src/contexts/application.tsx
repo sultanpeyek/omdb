@@ -1,10 +1,16 @@
+import type {PropsWithChildren} from 'react'
 import {createContext, useContext} from 'react'
 
 import useRouteUrlHistory from '@/hooks/useRouteUrlHistory'
 
-const ApplicationContext = createContext<any | undefined>(undefined)
+interface ApplicationContextInterface {
+  previousRoute: string
+}
+const ApplicationContext = createContext<
+  ApplicationContextInterface | undefined
+>(undefined)
 
-export function ApplicationProvider({children}: any) {
+export function ApplicationProvider({children}: PropsWithChildren) {
   const {previousRoute} = useRouteUrlHistory()
 
   return (

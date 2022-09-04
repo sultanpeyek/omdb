@@ -8,9 +8,11 @@ import {
 import {render, screen} from '@testing-library/react'
 import {Provider} from 'react-redux'
 
-import store from '@/app/store'
+import {makeStore} from '@/app/store'
 import WalletConnect from '@/components/common/WalletConnect'
 import {RPC_MAINNET_PRIMARY} from '@/constants'
+
+const store = makeStore()
 
 const network = WalletAdapterNetwork.Mainnet
 
@@ -26,7 +28,11 @@ describe('<WalletConnect />', () => {
         <ConnectionProvider endpoint={RPC_MAINNET_PRIMARY}>
           <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
-              <WalletConnect />
+              <WalletConnect
+                mints={[]}
+                checkWalletStatus="succeeded"
+                onByPassWalletConnectClick={() => true}
+              />
             </WalletModalProvider>
           </WalletProvider>
         </ConnectionProvider>

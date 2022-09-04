@@ -1,14 +1,29 @@
+import type {RefObject} from 'react'
 import {useEffect, useRef, useState} from 'react'
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
 
+import type {Movie} from '@/api/movies'
 import SearchAutoCompleteContainer from '@/components/movies/SearchAutoCompleteContainer'
 import SearchAutoCompleteItem from '@/components/movies/SearchAutoCompleteItem'
 import useOnClickOutside from '@/hooks/useOnClickOutside'
 
-const SearchForm = (props: any) => {
+export interface SearchFormProps {
+  isInputOnFocus: boolean
+  onAutoCompleteItemClick: (imdbID: Movie['imdbID']) => void
+  onSearchButtonClick: () => void
+  onSearchInputFocus: React.FocusEventHandler<HTMLElement>
+  onSearchResetClick: () => void
+  onSearchValueChange: React.ChangeEventHandler<HTMLInputElement>
+  onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement>
+  searchSuggestions: Movie[]
+  searchValue: string
+  searchInputIsFocus: boolean
+}
+
+const SearchForm = (props: SearchFormProps) => {
   const [isInputOnFocus, setIsInputOnFocus] = useState(props.isInputOnFocus)
 
-  const ref: any = useRef()
+  const ref: RefObject<HTMLDivElement> = useRef(null)
   useOnClickOutside(ref, () => {
     setIsInputOnFocus(false)
   })
@@ -52,9 +67,9 @@ const SearchForm = (props: any) => {
                   ? props.onSearchKeyDown(e)
                   : null
               }}
-              onFocus={() => {
+              onFocus={e => {
                 setIsInputOnFocus(true)
-                props.onSearchInputFocus && props.onSearchInputFocus()
+                props.onSearchInputFocus && props.onSearchInputFocus(e)
               }}
             />
           </div>
@@ -67,7 +82,7 @@ const SearchForm = (props: any) => {
           </button>
           {isInputOnFocus && (
             <SearchAutoCompleteContainer containerRef={ref}>
-              {props.searchSuggestions.map((result: any, index: number) => (
+              {props.searchSuggestions.map((result: Movie, index: number) => (
                 <SearchAutoCompleteItem
                   key={`autocomplete-${result.imdbID || index}`}
                   onClick={() => props.onAutoCompleteItemClick(result.imdbID)}
