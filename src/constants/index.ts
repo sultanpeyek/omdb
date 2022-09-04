@@ -6,5 +6,6 @@ export const TWITTER_USERNAME = '@sultanpeyek'
 export const DEFAULT_SEARCH_QUERY = 'Batman'
 export const ELIGIBLE_NFT_MINTS = [
   '3Q9K7JKSgF9vUMwrHY69Tu6r4qwHb9EE3t6wwQi83dUm',
+  '9GbMjhtJGpZ2ffqdjnbmxcPHXB6f3zt5sgws6DeEEX5n',
 ]
 export const RPC_MAINNET_PRIMARY = 'https://ssc-dao.genesysgo.net'

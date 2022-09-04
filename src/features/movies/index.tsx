@@ -64,11 +64,17 @@ const Movies = () => {
       programId: TOKEN_PROGRAM_ID,
     })
 
-    const mints = response.value.map(e => {
-      const accountInfo = SPLToken.AccountLayout.decode(e.account.data)
-      return new PublicKey(accountInfo.mint).toString()
-    })
-    const filteredMints: string[] = mints.filter((mint: string) =>
+    const mints = response.value
+      .filter(e => {
+        const accountInfo = SPLToken.AccountLayout.decode(e.account.data)
+        return parseInt(accountInfo.amount.toString()) > 0
+      })
+      .map(e => {
+        const accountInfo = SPLToken.AccountLayout.decode(e.account.data)
+        return new PublicKey(accountInfo.mint).toString()
+      })
+
+    const filteredMints = mints.filter(mint =>
       ELIGIBLE_NFT_MINTS.includes(mint),
     )
     setMints(filteredMints)
