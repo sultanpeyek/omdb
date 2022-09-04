@@ -9,7 +9,6 @@ export type WalletConnectProps = {
 
 const WalletConnect = (props: WalletConnectProps) => {
   const wallet = useWallet()
-  console.log(props.mints)
 
   return (
     <div className="container my-8">
