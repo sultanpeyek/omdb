@@ -13,7 +13,7 @@ export const isValidUrl = (url: string) => {
 }
 
 export const addToLocalStorage = (newData: Movie[]) => {
-  const oldLocaleStorageData: string = localStorage.getItem('movies') || ''
+  const oldLocaleStorageData: string = localStorage.getItem('movies') || '[]'
   const oldLocaleStorageDataParsed: Movie[] =
     JSON.parse(oldLocaleStorageData) || []
   const newLocaleStorageData: Movie[] =
